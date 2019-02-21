@@ -97,13 +97,13 @@ _fdr() {
 # _cdf - cd into the directory of the selected file
 _cdf() {
    local file
-   file=$(fzf +m -q "$*") && cd $(dirname "$file")
+   file=$(fzf +m -q "$*") && cd "$(dirname "$file")"
 }
 
 # _fst - cd into the directory from stack
 _fst() {
     local dir
-    dir=$(echo $dirstack | sed -e 's/\s/\n/g' | fzf +s +m -1 -q "$*")
+    dir=$(echo $dirstack | sed 's_\s\/_\n\/_g' | fzf +s +m -1 -q "$*")
     [ $dir ] && cd $dir  # $dirの存在を確かめないとCtrl-Cしたとき$HOMEにcdしてしまう
 }
 
