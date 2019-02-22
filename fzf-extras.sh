@@ -103,8 +103,9 @@ _cdf() {
 # _fst - cd into the directory from stack
 _fst() {
     local dir
-    dir=$(echo $dirstack | sed 's_\s\/_\n\/_g' | fzf +s +m -1 -q "$*")
-    [ $dir ] && cd $dir  # $dirの存在を確かめないとCtrl-Cしたとき$HOMEにcdしてしまう
+    # sed: Modify space before /(root)
+    dir=$(echo $dirstack | sed 's_\s\/_\n\/_g' | fzf --height=40% --reverse +s +m -1 -q "$*")
+    [ $dir ] && cd "$dir"  # $dirの存在を確かめないとCtrl-Cしたとき$HOMEにcdしてしまう
 }
 
 # utility function used to run the command in the shell
